@@ -31,7 +31,7 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-
+TARGET_ARCH := arm
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
@@ -81,18 +81,36 @@ TARGET_USES_C2D_COMPOSITION := true
 BOARD_EGL_CFG := device/htc/msm8660-common/configs/egl.cfg
 
 # Wifi related defines
-WIFI_BAND                        := 802_11_ABG
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
-BOARD_WLAN_DEVICE                := bcmdhd
-WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P          := "/vendor/firmware/fw_bcmdhd_p2p.bin"
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
-BOARD_LEGACY_NL80211_STA_EVENTS := true
+# BCMDHD
+# KERNEL CONFIG, rider.mk, BoardConfig.mk, BoardConfigCommon.mk, init.rider.rc
+#WIFI_BAND                        := 802_11_ABG
+#WPA_SUPPLICANT_VERSION           := VER_0_8_X
+#BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+#BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+#BOARD_HOSTAPD_DRIVER             := NL80211
+#BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+#BOARD_WLAN_DEVICE                := bcmdhd
+#WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcmdhd.bin"
+#WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcmdhd_apsta.bin"
+#WIFI_DRIVER_FW_PATH_P2P          := "/vendor/firmware/fw_bcmdhd_p2p.bin"
+#WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+#BOARD_LEGACY_NL80211_STA_EVENTS := true
+
+# BCM4329
+BOARD_WPA_SUPPLICANT_DRIVER					:= WEXT
+WPA_SUPPLICANT_VERSION						:= VER_0_8_X
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB				:= lib_driver_cmd_wext
+BOARD_WLAN_DEVICE						:= bcm4329
+WIFI_DRIVER_FW_PATH_PARAM					:= "/sys/module/bcm4329/parameters/firmware_path"
+WIFI_DRIVER_MODULE_PATH						:= "/system/lib/modules/bcm4329.ko"
+WIFI_DRIVER_FW_PATH_STA						:= "/vendor/firmware/fw_bcm4329.bin"
+WIFI_DRIVER_FW_PATH_AP						:= "/vendor/fw_bcm4329_apsta.bin"
+WIFI_DRIVER_MODULE_ARG						:= "firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/proc/calibration iface_name=wlan"
+WIFI_DRIVER_MODULE_NAME						:= "bcm4329"
+BOARD_WLAN_DEVICE_REV						:= bcm4329
+WIFI_BAND							:= 802_11_ABGN
+BOARD_NEEDS_CUTILS_LOG						:= true
+
 
 # Webkit
 ENABLE_WEBGL := true

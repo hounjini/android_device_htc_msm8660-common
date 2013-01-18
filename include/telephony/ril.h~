@@ -3311,8 +3311,7 @@ typedef struct {
 
 
 /* hounjini added for wimax */
-#define RIL_REQUEST_SET_ISIM_AUTH 526
-#define RIL_REQUEST_RESET_WSIM_STATE 545
+
 
 
 
