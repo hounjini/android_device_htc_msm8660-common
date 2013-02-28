@@ -42,7 +42,8 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio_policy.msm8660 \
     audio.primary.msm8660 \
-    libaudioutils
+    libaudioutils \
+    audio.usb.default
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -51,9 +52,9 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8660 \
     libgenlock \
     libmemalloc \
-    liboverlay \
     libQcomUI \
-    libtilerenderer
+    libtilerenderer \
+    liboverlay \
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -99,3 +100,9 @@ PRODUCT_COPY_FILES += \
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
+
+# Common build properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.egl.hw=1 \
+    debug.enabletr=true \
+    debug.mdpcomp.logs=0 \

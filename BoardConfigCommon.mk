@@ -32,10 +32,12 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_ARCH := arm
+ARCH_ARM_HAVE_NEON := true
+
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DNO_QCOM_MVS
 
 # Scorpion optimizations
 TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
@@ -45,6 +47,9 @@ TARGET_SCORPION_BIONIC_PLDSIZE := 128
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_QCOM_DISPLAY_VARIANT := legacy
+TARGET_QCOM_AUDIO_VARIANT := legacy
+BOARD_USES_LEGACY_QCOM := true
 
 # Audio
 COMMON_GLOBAL_CFLAGS += -DHTC_ACOUSTIC_AUDIO
@@ -53,6 +58,8 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_ACDB_ENABLED -DLEGACY_QCOM_VOICE
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUEDROID_VENDOR_CONF := device/htc/msm8660-common/bluetooth/vnd_msm8660.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/htc/msm8660-common/bluetooth/include
 
 # Camera
 CAMERA_USES_SURFACEFLINGER_CLIENT_STUB := true
@@ -79,11 +86,16 @@ USE_OPENGL_RENDERER := true
 TARGET_NO_HW_VSYNC := true
 TARGET_USES_C2D_COMPOSITION := true
 BOARD_EGL_CFG := device/htc/msm8660-common/configs/egl.cfg
+#disable overlay. temporary.
+#TARGET_USES_OVERLAY := true
+TARGET_QCOM_HDMI_OUT := true
+TARGET_QCOM_HDMI_RESOLUTION_AUTO := true
+
 
 # Wifi related defines
 # BCMDHD
 # KERNEL CONFIG, rider.mk, BoardConfig.mk, BoardConfigCommon.mk, init.rider.rc
-#WIFI_BAND                        := 802_11_ABG
+#WIFI_BAND                        := 802_11_ABGN
 #WPA_SUPPLICANT_VERSION           := VER_0_8_X
 #BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 #BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
@@ -94,7 +106,7 @@ BOARD_EGL_CFG := device/htc/msm8660-common/configs/egl.cfg
 #WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 #WIFI_DRIVER_FW_PATH_P2P          := "/vendor/firmware/fw_bcmdhd_p2p.bin"
 #WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
-#BOARD_LEGACY_NL80211_STA_EVENTS := true
+#BOARD_LEGACY_NL80211_STA_EVENTS  := true
 
 # BCM4329
 BOARD_WPA_SUPPLICANT_DRIVER					:= WEXT
@@ -110,7 +122,6 @@ WIFI_DRIVER_MODULE_NAME						:= "bcm4329"
 BOARD_WLAN_DEVICE_REV						:= bcm4329
 WIFI_BAND							:= 802_11_ABGN
 BOARD_NEEDS_CUTILS_LOG						:= true
-
 
 # Webkit
 ENABLE_WEBGL := true
